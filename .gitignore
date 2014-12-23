@@ -1,0 +1,5 @@
+.DS_Store
+*.pyc
+tubejockey/tubejockey/settings/local.py
+tubejockey/tubejockey/settings/development.py
+tubejockey/tubejockey/settings/production.py
