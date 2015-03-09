@@ -1,0 +1,13 @@
+Django==1.6
+django_facebook==5.3.1
+MySQL-python==1.2.5
+django-imagekit==3.2
+django-modeldict==1.4.1
+Pillow==2.3.0
+flup==1.0.2
+django-meta==0.1.0
+pymongo==2.8
+djangorestframework==3.0.5
+markdown==2.6
+django-filter==0.9.2
+django-cors-headers==1.0.0

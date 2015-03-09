@@ -1,0 +1,33 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/elements/room-service.html">
+
+<polymer-element name="room-list" attributes="show">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+      }
+
+      room-card {
+        margin-bottom: 30px;
+      }
+    </style>
+
+    <room-service id="service" rooms="{{rooms}}">
+    </room-service>
+
+    <div layout verticle center>
+      <template repeat="{{room in rooms}}">
+        <room-card>
+          <h2>{{room.title}}</h2>
+          <p>{{room.description}}</p>
+        </room-card>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    Polymer({});
+  </script>
+</polymer-element>

@@ -1,0 +1,23 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/core-ajax/core-ajax.html">
+
+<polymer-element name="room-service" attributes="rooms">
+  <template>
+    <core-ajax id="ajax"
+      auto
+      url="http://local.core.musubio.com:8888/api/rooms/"
+      on-core-response="{{roomsLoaded}}"
+      handleAs="json">
+    </core-ajax>
+  </template>
+  <script>
+    Polymer('room-service', {
+      created: function() {
+        this.rooms = [];
+      },
+      roomsLoaded: function() {
+        this.rooms = this.$.ajax.response.slice(0);
+      },
+    });
+  </script>
+</polymer-element>
