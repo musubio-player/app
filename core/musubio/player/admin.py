@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from player.models import Post, Room
+from player.models import Post, Channel
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'youtube_id', 'user')
@@ -13,16 +13,16 @@ class PostAdmin(admin.ModelAdmin):
             db_field, request, **kwargs
         )
 
-class RoomAdmin(admin.ModelAdmin):
+class ChannelAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'user')
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'user':
             kwargs['initial'] = request.user.id
 
-        return super(RoomAdmin, self).formfield_for_foreignkey(
+        return super(ChannelAdmin, self).formfield_for_foreignkey(
             db_field, request, **kwargs
         )
 
 admin.site.register(Post, PostAdmin)
-admin.site.register(Room, RoomAdmin)
+admin.site.register(Channel, ChannelAdmin)

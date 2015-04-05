@@ -1,4 +1,4 @@
-ROOM_DATA = [
+CHANNEL_DATA = [
     {
         'title': 'Careless Whispers 24/7',
         'description': 'CW all the time.',

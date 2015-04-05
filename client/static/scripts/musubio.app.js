@@ -6,9 +6,9 @@ var musubio = angular.module('musubio', ['ngRoute'])
       controller: 'HomePageController',
       templateUrl: 'home.html',
     })
-    .when('/rooms/:slug', {
-      controller: 'RoomController',
-      templateUrl: 'room.html',
+    .when('/channels/:slug', {
+      controller: 'ChannelController',
+      templateUrl: 'channel.html',
     })
     .otherwise({
       redirectTo:'/'

@@ -8,7 +8,7 @@ function ChatSchema(options) {
     id: Number,
     username: String,
     body: String,
-    room_id: Number,
+    channel_id: Number,
     youtube_id: String,
     video_timestamp: Number,
     post_date: Date,

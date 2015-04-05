@@ -6,14 +6,14 @@ from django.conf.urls import url, include
 from rest_framework import routers
 
 from userprofile.serializers import UserViewSet
-from player.serializers import RoomViewSet, PostViewSet
+from player.serializers import ChannelViewSet, PostViewSet
 
 admin.autodiscover()
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-router.register(r'rooms', RoomViewSet)
+router.register(r'channels', ChannelViewSet)
 router.register(r'posts', PostViewSet)
 
 urlpatterns = patterns('',

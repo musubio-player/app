@@ -1,12 +1,12 @@
 musubio.controller('HomePageController', ['$scope', '$http', function($scope, $http) {
   $scope.init = function() {
-    $scope.getRooms();
+    $scope.getChannels();
   }
 
-  $scope.getRooms = function() {
-    $http.get('http://local.core.musubio.com/api/rooms/').
+  $scope.getChannels = function() {
+    $http.get('http://local.core.musubio.com/api/channels/').
       success(function(data, status, headers, config) {
-        $scope.rooms = data;
+        $scope.channels = data;
       }).
       error(function(data, status, headers, config) {
 
@@ -16,46 +16,46 @@ musubio.controller('HomePageController', ['$scope', '$http', function($scope, $h
   $scope.init();
 }]);
 
-musubio.controller('RoomController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+musubio.controller('ChannelController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
   $scope.init = function() {
-    var roomId = $routeParams.slug;
+    var channelId = $routeParams.slug;
 
-    $scope.getRooms();
-    $scope.getRoom(roomId);
-    $scope.getActivityStream(roomId);
+    $scope.getChannels();
+    $scope.getChannel(channelId);
+    $scope.getActivityStream(channelId);
   }
 
-  $scope.getRoom = function(roomId) {
-    $http.get('http://local.core.musubio.com/api/rooms/' + roomId).
+  $scope.getChannel = function(channelId) {
+    $http.get('http://local.core.musubio.com/api/channels/' + channelId).
       success(function(data, status, headers, config) {
-        $scope.room = data;
+        $scope.channel = data;
 
         var now = new Date();
         var startTime = new Date('2015-04-05T06:00:00.043Z');
         // startTime = new Date(startTime.setMinutes(0));
         // startTime = new Date(startTime.setSeconds(0));
 
-        var duration = $scope.room.posts[0].post.duration;
+        var duration = $scope.channel.posts[0].post.duration;
         var jumpToTime = Math.floor(((now.getTime() - startTime.getTime()) % duration) / 1000);
 
-        $scope.videoEmbed = '<iframe width="750" height="422" src="https://www.youtube.com/embed/' + $scope.room.posts[0].post.youtube_id + '?autoplay=1&controls=1&loop=1&start=' + jumpToTime + '" frameborder="0" allowfullscreen></iframe>'
+        $scope.videoEmbed = '<iframe width="750" height="422" src="https://www.youtube.com/embed/' + $scope.channel.posts[0].post.youtube_id + '?autoplay=1&controls=1&loop=1&start=' + jumpToTime + '" frameborder="0" allowfullscreen></iframe>'
       }).
       error(function(data, status, headers, config) {
 
       });
   }
 
-  $scope.getRooms = function() {
-    $http.get('http://local.core.musubio.com/api/rooms/').
+  $scope.getChannels = function() {
+    $http.get('http://local.core.musubio.com/api/channels/').
       success(function(data, status, headers, config) {
-        $scope.rooms = data;
+        $scope.channels = data;
       }).
       error(function(data, status, headers, config) {
 
       });
   }
 
-  $scope.getActivityStream = function(roomId) {
+  $scope.getActivityStream = function(channelId) {
     $scope.stream = [
       {
         type: 'chat',
@@ -85,7 +85,7 @@ musubio.controller('RoomController', ['$scope', '$http', '$routeParams', functio
         type: 'system',
         user: { username: 'matt.cain', avatar: 'http://placehold.it/50x50' },
         post: {
-          body: 'has entered the room.',
+          body: 'has entered the channel.',
           date_published: new Date(),
         },
       },

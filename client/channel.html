@@ -1,9 +1,9 @@
-<div id="room-details">
+<div id="channel-details">
   <header class="drop-shadow">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h1><span class="glyphicon glyphicon-th-large"></span> {{ room.title }}</h1>
+          <h1><span class="glyphicon glyphicon-th-large"></span> {{ channel.title }}</h1>
           <hr />
         </div>
       </div>
@@ -87,7 +87,7 @@
 
       <div class="row">
         <div class="col-lg-8">
-          <h2><span class="glyphicon glyphicon-facetime-video"></span> {{ room.posts[0].post.title }}</h2>
+          <h2><span class="glyphicon glyphicon-facetime-video"></span> {{ channel.posts[0].post.title }}</h2>
         </div>
         <div class="col-lg-4">
 
@@ -104,9 +104,9 @@
           <h2 class="chrome"><span class="glyphicon glyphicon-th-large"></span> Other Channels</h2>
 
           <div class="list">
-            <div class="list-item list-item-card" ng-repeat="room in rooms">
-              <a href="#/rooms/{{ room.id }}"><img ng-src="http://img.youtube.com/vi/{{ room.posts[0].post.youtube_id }}/0.jpg" class="img-responsive"></a>
-              <a href="#/rooms/{{ room.id }}"><h2>{{ room.title }}</h2></a>
+            <div class="list-item list-item-card" ng-repeat="channel in channels">
+              <a href="#/channels/{{ channel.id }}"><img ng-src="http://img.youtube.com/vi/{{ channel.posts[0].post.youtube_id }}/0.jpg" class="img-responsive"></a>
+              <a href="#/channels/{{ channel.id }}"><h2>{{ channel.title }}</h2></a>
             </div>
           </div>
 

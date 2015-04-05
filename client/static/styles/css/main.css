@@ -311,34 +311,34 @@ h4.chrome {
 }
 
 /* Template */
-/* Room Page */
+/* Channel Page */
 /* line 8, ../sass/main.scss */
-#room-details header {
+#channel-details header {
   margin-top: -10px;
   margin-bottom: 15px;
   background: #000;
   padding: 15px;
 }
 /* line 14, ../sass/main.scss */
-#room-details header h1 {
+#channel-details header h1 {
   color: #888;
 }
 /* line 18, ../sass/main.scss */
-#room-details header h2 {
+#channel-details header h2 {
   color: #555;
 }
 /* line 22, ../sass/main.scss */
-#room-details header hr {
+#channel-details header hr {
   border-color: #333;
 }
 /* line 31, ../sass/main.scss */
-#room-details #activity-stream {
+#channel-details #activity-stream {
   height: 365px;
   border: 1px solid #333;
   background: #333;
   overflow-y: auto;
 }
 /* line 37, ../sass/main.scss */
-#room-details #activity-stream .system-message {
+#channel-details #activity-stream .system-message {
   background: gainsboro;
 }
