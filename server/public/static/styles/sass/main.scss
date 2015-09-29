@@ -1,0 +1,53 @@
+@import "base";
+
+/* Template */
+
+
+/* Channel Page */
+#channel-details {
+  header {
+    margin-top: -10px;
+    margin-bottom: 15px;
+    background: #000;
+    padding: 15px;
+
+    h1 {
+      color: #888;
+    }
+
+    h2 {
+      color: #555;
+    }
+
+    hr {
+      border-color: #333;
+    }
+
+    .glyphicon {
+      vertical-align: bottom;
+      margin-bottom: 3px;
+    }
+
+    .current-video {
+
+    }
+  }
+
+  #activity-stream {
+    height: 365px;
+    border: 1px solid #333;
+    background: #333;
+    overflow-y: auto;
+
+    .system-message {
+      background: $light-grey;
+    }
+  }
+}
+
+/* Jumbotrons */
+.jumbotron.jumbotron-home {
+  background-image: url('/static/images/template/jumbotron/home-classic.jpg');
+  height: 600px;
+  box-shadow: 0px 1px 5px $dark-grey;
+}

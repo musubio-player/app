@@ -1,0 +1,117 @@
+<div id="channel-details">
+  <header class="drop-shadow">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1><span class="glyphicon glyphicon-th-large"></span> {{ channel.title }}</h1>
+          <hr />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8">
+          <div>
+            <div ng-bind-html="videoEmbed | unsafe"></div>
+          </div>
+
+        <!--
+          <div class="post-user-info">
+            <div class="user-avatar">
+              <img ng-src="http://placehold.it/50x50" class="img-circle">
+            </div>
+            <div class="user-meta">
+              <a href="">user.name</a>
+            </div>
+          </div>
+        -->
+        </div>
+
+        <div class="col-lg-4">
+          <h3 class="chrome no-margin">Activity Stream</h3>
+
+          <div id="activity-stream">
+            <div class="list">
+              <div class="list-item list-item-chat row" ng-repeat="post in stream">
+
+                <div ng-if="post.type == 'chat' && post.user.username == 'angel.pagan'">
+                  <div class="col-lg-10">
+                    <div class="chat-bubble">
+                      <p>{{ post.post.body }}</p>
+
+                      <span class="quiet">
+                        <a href="">{{ post.user.username }}</a> • {{ post.post.date_published | date:'short' }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-2">
+                    <img ng-src="{{ post.user.avatar }}" class="img-circle">
+                  </div>
+                </div>
+
+                <div ng-if="post.type == 'chat' && post.user.username != 'angel.pagan'">
+                  <div class="col-lg-2">
+                    <img ng-src="{{ post.user.avatar }}" class="img-circle">
+                  </div>
+                  <div class="col-lg-10">
+                    <div class="chat-bubble">
+                      <p>{{ post.post.body }}</p>
+
+                      <span class="quiet">
+                        <a href="">{{ post.user.username }}</a> • {{ post.post.date_published | date:'short' }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div ng-if="post.type == 'system'" class="system-message">
+                  <div class="text-center">
+                    <a href="">{{ post.user.username }}</a> {{ post.post.body }}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="">
+            <input type="text" class="form-control input-sm" placeholder="Write a message">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <hr />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8">
+          <h2><span class="glyphicon glyphicon-facetime-video"></span> {{ channel.posts[0].post.title }}</h2>
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div>
+          <h2 class="chrome"><span class="glyphicon glyphicon-th-large"></span> Other Channels</h2>
+
+          <div class="list">
+            <div class="list-item list-item-card" ng-repeat="channel in channels">
+              <a href="#/channels/{{ channel.id }}"><img ng-src="http://img.youtube.com/vi/{{ channel.posts[0].post.youtube_id }}/0.jpg" class="img-responsive"></a>
+              <a href="#/channels/{{ channel.id }}"><h2>{{ channel.title }}</h2></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
