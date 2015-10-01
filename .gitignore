@@ -1,5 +1,4 @@
 *.pyc
 server/musubio/musubio/settings/local.py
 server/musubio/musubio/settings/production.py
-client/static/styles/.sass-cache
-client/bower_components
+client/styles/.sass-cache
