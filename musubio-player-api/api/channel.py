@@ -8,7 +8,7 @@ from protorpc import message_types
 from protorpc import remote
 from api import api_root
 
-from messages.channel import ChannelResponseMessage, ChannelRequestMessage, ChannelListResponse, ChannelDetailsRequestMessage
+from messages.channel import Channel, ChannelInsertRequest, ChannelListResponse, ChannelDetailsRequest, ChannelAddVideoRequest
 from models.channel import Channel as ChannelModel
 
 package = 'Musubio'
@@ -17,8 +17,8 @@ package = 'Musubio'
 @api_root.api_class(resource_name='musubio')
 class ChannelApi(remote.Service):
     """Musubio Channel API v1"""
-    @endpoints.method(ChannelDetailsRequestMessage,
-                      ChannelResponseMessage,
+    @endpoints.method(ChannelDetailsRequest,
+                      Channel,
                       path='channels/{id}',
                       http_method='GET',
                       name='channels.details')
@@ -40,11 +40,20 @@ class ChannelApi(remote.Service):
 
         return channelList
 
-    @endpoints.method(ChannelRequestMessage,
-                      ChannelResponseMessage,
+    @endpoints.method(ChannelInsertRequest,
+                      Channel,
                       path='channels',
                       http_method='POST',
                       name='channels.insert')
     def channel_insert(self, request):
         entity = ChannelModel.put_from_message(request)
         return entity.to_message()
+
+    @endpoints.method(ChannelAddVideoRequest,
+                        Channel,
+                        path='channels/add/video',
+                        http_method='POST',
+                        name='channels.addPost')
+    def channel_add_post(self, request):
+        channel = ChannelModel.add_video(request)
+        return channel.to_message()

@@ -6,7 +6,8 @@ determined.
 """
 from google.appengine.ext import ndb
 
-from messages.channel import ChannelResponseMessage
+from messages.channel import Channel as ChannelMessage
+from models.video import Video as VideoModel
 
 
 TIME_FORMAT_STRING = '%b %d, %Y %I:%M:%S %p'
@@ -15,6 +16,7 @@ class Channel(ndb.Model):
     """Model to store channels that have been inserted by users."""
     title = ndb.StringProperty(required=True)
     description = ndb.StringProperty()
+    videos = ndb.KeyProperty(kind=VideoModel, repeated=True)
     created = ndb.DateTimeProperty(auto_now_add=True)
     updated = ndb.DateTimeProperty(auto_now_add=True)
 
@@ -29,17 +31,23 @@ class Channel(ndb.Model):
         This is necessary so the entity can be returned in an API request.
 
         Returns:
-            An instance of ChannelResponseMessage with the ID set to the datastore
+            An instance of Channel with the ID set to the datastore
             ID of the current entity, the outcome simply the entity's outcome value.
         """
-        channelMessage = ChannelResponseMessage()
-        channelMessage.id = self.key.id()
-        channelMessage.title = self.title
-        channelMessage.description = self.description
-        channelMessage.created = self.created
-        channelMessage.updated = self.updated
+        channel = ChannelMessage()
+        channel.id = self.key.id()
+        channel.title = self.title
+        channel.description = self.description
 
-        return channelMessage
+        videos = []
+        for video in self.videos:
+            videos.append(video.get().to_message())
+
+        channel.videos = videos
+        channel.created = self.created
+        channel.updated = self.updated
+
+        return channel
 
     @classmethod
     def get_details(cls, message):
@@ -64,3 +72,19 @@ class Channel(ndb.Model):
     @classmethod
     def query_channels(cls):
         return cls.query()
+
+    @classmethod
+    def add_video(cls, message):
+        # Get the entities.
+        video = VideoModel.get_by_id(message.video_id)
+        channel = cls.get_by_id(message.channel_id)
+
+        # Add the video to the channel.
+        channel.videos.append(video.key)
+        channel.put()
+
+        return channel
+
+    @classmethod
+    def remove_video(cls):
+        pass
