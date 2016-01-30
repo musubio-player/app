@@ -1,7 +1,8 @@
 from google.appengine.ext import ndb
 
-from messages.video import Video as VideoMessage
+from messages.video import Video as VideoMessage, Image
 
+YOUTUBE_IMAGE_ROOT = 'https://i.ytimg.com/vi'
 
 class Video(ndb.Model):
     """Model to store videos that have been inserted by users."""
@@ -25,6 +26,12 @@ class Video(ndb.Model):
         video.title = self.title
         video.description = self.description
         video.created = self.created
+
+        image = Image()
+        image.default = '%s/%s/default.jpg' % (YOUTUBE_IMAGE_ROOT, video.video_id)
+        image.high = '%s/%s/hqdefault.jpg' % (YOUTUBE_IMAGE_ROOT, video.video_id)
+        image.medium = '%s/%s/mqdefault.jpg' % (YOUTUBE_IMAGE_ROOT, video.video_id)
+        video.image = image
 
         return video
 
