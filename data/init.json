@@ -47,6 +47,30 @@
           "weight": 3
         }
       ]
+    },
+    {
+      "title": "Mangchi TV",
+      "description": "This is the Mangchi channel",
+      "videos":[
+        {
+          "title": "12 Wins in October: A 2014 SF Giants Documentary",
+          "description": "Video clips & audio remain courtesy of Major League Baseball Advanced Media, Comcast Sportsnet Bay Area, MLB Network, TBS, FOX Sports 1, FOX, Cumulus ...",
+          "video_id": "p0ALRsgABrs",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "title": "American Idol",
+      "description": "This is the American Idol channel",
+      "videos":[
+        {
+          "title": "12 Wins in October: A 2014 SF Giants Documentary",
+          "description": "Video clips & audio remain courtesy of Major League Baseball Advanced Media, Comcast Sportsnet Bay Area, MLB Network, TBS, FOX Sports 1, FOX, Cumulus ...",
+          "video_id": "p0ALRsgABrs",
+          "weight": 1
+        }
+      ]
     }
   ]
 }
