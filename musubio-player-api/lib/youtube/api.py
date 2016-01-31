@@ -38,6 +38,20 @@ class YoutubeAPI():
 
         return results, videos, channels, playlists
 
+    def video_list(self, id):
+        """Get a list of videos by ID"""
+        results = self.api.videos().list(
+            id=id,
+            part='snippet',
+        ).execute()
+
+        videos = []
+
+        for result in results.get('items', []):
+            if result['kind'] == 'youtube#video':
+                videos.append(result)
+
+        return results, videos
 
 
 """

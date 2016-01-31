@@ -3,7 +3,7 @@ from protorpc import remote
 from api import api_root
 
 from lib.youtube.api import YoutubeAPI
-from messages.youtube import ThumbnailMessage, VideoMessage, SearchResultsMessage, SearchRequestMessage
+from messages.youtube import ThumbnailMessage, Video, SearchResultsMessage, SearchRequestMessage, VideoList, VideoListRequestMessage
 
 package = 'YouTube'
 
@@ -13,53 +13,77 @@ class YouTubeApi(remote.Service):
     """YouTube API v1"""
     @endpoints.method(SearchRequestMessage,
                       SearchResultsMessage,
-                      path='search',
+                      path='youtube/search',
                       http_method='GET',
-                      name='search')
+                      name='youtube.search')
     def youtube_search(self, request):
         api = YoutubeAPI()
         results, videos, channels, playlists = api.search(request.q, request.limit)
         searchResults = SearchResultsMessage()
 
-        items = []
+        results = []
         for item in videos:
-            video = VideoMessage()
-            video.id = item['id']['videoId']
-            video.title = item['snippet']['title']
-            video.url = 'https://www.youtube.com/watch?v=%s' % item['id']['videoId']
-            video.channel_id = item['snippet']['channelId']
-            video.published_at = item['snippet']['publishedAt']
-            video.live_broadcast_content = item['snippet']['liveBroadcastContent']
-            video.channel_title = item['snippet']['channelTitle']
-            video.description = item['snippet']['description']
+            video = YouTubeApi.to_message(item)
+            results.append(video)
 
-            thumbnail = ThumbnailMessage()
-            thumbnail.default = item['snippet']['thumbnails']['default']['url']
-            thumbnail.high = item['snippet']['thumbnails']['high']['url']
-            thumbnail.medium = item['snippet']['thumbnails']['medium']['url']
-            video.thumbnail = thumbnail
-
-            items.append(video)
-
-        """
-        self.type = 'video'
-        self.video_id = object['id']['videoId']
-        self.video_url = 'https://www.youtube.com/watch?v=%s' % object['id']['videoId']
-        self.title = snippet['title']
-        self.channel_id = snippet['channelId']
-        self.published_at = snippet['publishedAt']
-        self.live_broadcast_content = snippet['liveBroadcastContent']
-        self.channel_title = snippet['channelTitle']
-        self.description = snippet['description']
-        self.etag = object['etag']
-
-        thumbnails = Object()
-        thumbnails.default = snippet['thumbnails']['default']['url']
-        thumbnails.high = snippet['thumbnails']['high']['url']
-        thumbnails.medium = snippet['thumbnails']['medium']['url']
-        self.thumbnails = thumbnails
-        """
-
-        searchResults.items = items
+        searchResults.videos = results
 
         return searchResults
+
+    @endpoints.method(VideoListRequestMessage,
+                      VideoList,
+                      path='youtube/videos/list',
+                      http_method='GET',
+                      name='youtube.videos.list')
+    def youtube_video_list(self, request):
+        """
+        Fetches a list of YouTube videos by ID.
+
+        :param request:
+        :return:
+        """
+        api = YoutubeAPI()
+        results, videos = api.video_list(request.id)
+
+        videoList = []
+        for item in videos:
+            video = YouTubeApi.to_message(item)
+            videoList.append(video)
+
+        videoListMessage = VideoList()
+        videoListMessage.videos = videoList
+
+        return videoListMessage
+
+    @staticmethod
+    def to_message(video):
+        """
+        Converts the JSON returned from the YouTube API to a Video message.
+
+        :param video: JSON data of a video.
+        :return: Video message data object.
+        """
+        videoMessage = Video()
+
+        # ID's are in various structures in the YouTube JSON data.
+        try:
+            id = video['id']['videoId']
+        except:
+            id = video['id']
+        
+        videoMessage.id = id
+        videoMessage.title = video['snippet']['title']
+        videoMessage.url = 'https://www.youtube.com/watch?v=%s' % id
+        videoMessage.channel_id = video['snippet']['channelId']
+        videoMessage.published_at = video['snippet']['publishedAt']
+        videoMessage.live_broadcast_content = video['snippet']['liveBroadcastContent']
+        videoMessage.channel_title = video['snippet']['channelTitle']
+        videoMessage.description = video['snippet']['description']
+
+        thumbnail = ThumbnailMessage()
+        thumbnail.default = video['snippet']['thumbnails']['default']['url']
+        thumbnail.high = video['snippet']['thumbnails']['high']['url']
+        thumbnail.medium = video['snippet']['thumbnails']['medium']['url']
+        videoMessage.thumbnail = thumbnail
+
+        return videoMessage

@@ -31,7 +31,7 @@ class ImporterApi(remote.Service):
             channelInstance.description = channel.description
             channelInstance.put()
 
-            videos = []
+            # Create videos and associate them to the channel.
             for video in channel.videos:
                 videoInstance = VideoModel()
                 videoInstance.title = video.title

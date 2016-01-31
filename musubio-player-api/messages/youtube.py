@@ -10,7 +10,7 @@ class ThumbnailMessage(messages.Message):
     medium = messages.StringField(3, required=True)
 
 
-class VideoMessage(messages.Message):
+class Video(messages.Message):
     """YouTube Video data object."""
     id = messages.StringField(1, required=True)
     title = messages.StringField(2, required=True)
@@ -25,10 +25,20 @@ class VideoMessage(messages.Message):
 
 class SearchResultsMessage(messages.Message):
     """Collection of search results."""
-    items = messages.MessageField(VideoMessage, 1, repeated=True)
+    videos = messages.MessageField(Video, 1, repeated=True)
 
 
 class SearchRequestMessage(messages.Message):
     """ProtoRPC message definition to represent a search query."""
     q = messages.StringField(1, required=True)
     limit = messages.IntegerField(2, default=25)
+
+
+class VideoListRequestMessage(messages.Message):
+    """ProtoRPC message definition to represent a video list query"""
+    id = messages.StringField(1, required=True)
+
+
+class VideoList(messages.Message):
+    """Collection of videos"""
+    videos = messages.MessageField(Video, 1, repeated=True)
