@@ -2,8 +2,10 @@ import endpoints
 from api.channel import ChannelApi
 from api.video import VideoApi
 from api.youtube import YouTubeApi
+from api.importer import ImporterApi
 
-APPLICATION = endpoints.api_server([ChannelApi, VideoApi, YouTubeApi])
+
+APPLICATION = endpoints.api_server([ChannelApi, VideoApi, YouTubeApi, ImporterApi])
 
 # import os
 # import urllib

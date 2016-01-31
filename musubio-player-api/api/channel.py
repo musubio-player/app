@@ -9,7 +9,7 @@ from protorpc import remote
 from api import api_root
 
 from messages.channel import Channel, ChannelInsertRequest, ChannelListResponse, ChannelDetailsRequest, ChannelAddVideoRequest
-from models.channel import Channel as ChannelModel
+from models.channel import ChannelModel
 
 package = 'Musubio'
 
@@ -33,10 +33,10 @@ class ChannelApi(remote.Service):
                       name='channels.list')
     def channel_list(self, request):
         query = ChannelModel.query_channels()
-        items = [entity.to_message() for entity in query.fetch()]
+        channels = [entity.to_message() for entity in query.fetch()]
 
         channelList = ChannelListResponse()
-        channelList.items = items
+        channelList.channels = channels
 
         return channelList
 

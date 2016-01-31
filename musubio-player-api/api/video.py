@@ -1,15 +1,10 @@
-"""Hello World API implemented using Google Cloud Endpoints.
-
-Defined here are the ProtoRPC messages needed to define Schemas for methods
-as well as those methods defined in an API.
-"""
 import endpoints
 from protorpc import message_types
 from protorpc import remote
 from api import api_root
 
 from messages.video import VideoInsertRequest, Video, VideoList
-from models.video import Video as VideoModel
+from models.video import VideoModel
 
 package = 'Musubio'
 

@@ -1,7 +1,7 @@
 """ProtoRPC message class definitions for Musubio API."""
 
 from protorpc import messages, message_types
-from messages.video import Video
+from messages.video import Video, VideoInsertRequest
 
 
 class Channel(messages.Message):
@@ -25,9 +25,16 @@ class ChannelInsertRequest(messages.Message):
     description = messages.StringField(2, required=False)
 
 
+class ChannelBatchImportRequest(messages.Message):
+    """ProtoRPC message definition to represent a channel to be inserted."""
+    title = messages.StringField(1, required=True)
+    description = messages.StringField(2, required=False)
+    videos = messages.MessageField(VideoInsertRequest, 3, repeated=True)
+
+
 class ChannelListResponse(messages.Message):
     """Collection of Channels."""
-    items = messages.MessageField(Channel, 1, repeated=True)
+    channels = messages.MessageField(Channel, 1, repeated=True)
 
 
 class ChannelAddVideoRequest(messages.Message):

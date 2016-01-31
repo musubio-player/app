@@ -7,18 +7,22 @@ determined.
 from google.appengine.ext import ndb
 
 from messages.channel import Channel as ChannelMessage
-from models.video import Video as VideoModel
+from models.video import VideoModel
 
 
 TIME_FORMAT_STRING = '%b %d, %Y %I:%M:%S %p'
 
-class Channel(ndb.Model):
+class ChannelModel(ndb.Model):
     """Model to store channels that have been inserted by users."""
     title = ndb.StringProperty(required=True)
     description = ndb.StringProperty()
     videos = ndb.KeyProperty(kind=VideoModel, repeated=True)
     created = ndb.DateTimeProperty(auto_now_add=True)
     updated = ndb.DateTimeProperty(auto_now_add=True)
+
+    @classmethod
+    def _get_kind(cls):
+        return 'Channel'
 
     @property
     def timestamp(self):

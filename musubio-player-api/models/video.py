@@ -4,12 +4,16 @@ from messages.video import Video as VideoMessage, Image
 
 YOUTUBE_IMAGE_ROOT = 'https://i.ytimg.com/vi'
 
-class Video(ndb.Model):
+class VideoModel(ndb.Model):
     """Model to store videos that have been inserted by users."""
     video_id = ndb.StringProperty(required=True)
     title = ndb.StringProperty(required=True)
     description = ndb.StringProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
+
+    @classmethod
+    def _get_kind(cls):
+        return 'Video'
 
     def to_message(self):
         """Turns the Video entity into a ProtoRPC object.
