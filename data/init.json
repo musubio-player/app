@@ -15,6 +15,34 @@
         {
           "video_id": "rvAGBcNlCJU",
           "weight": 3
+        },
+        {
+          "video_id": "uogT8X26-ko",
+          "weight": 4
+        },
+        {
+          "video_id": "ceGVPcV1vEQ",
+          "weight": 5
+        },
+        {
+          "video_id": "oJncVijjnnY",
+          "weight": 6
+        },
+        {
+          "video_id": "ucANLv3Z47Y",
+          "weight": 7
+        },
+        {
+          "video_id": "4BwFYd2SM_0",
+          "weight": 8
+        },
+        {
+          "video_id": "_0sE5EJKXdY",
+          "weight": 9
+        },
+        {
+          "video_id": "OreOVAol-u4",
+          "weight": 10
         }
       ]
     },
@@ -41,8 +69,44 @@
       "description": "This is the Mangchi channel",
       "videos":[
         {
-          "video_id": "p0ALRsgABrs",
+          "video_id": "PGhKwCq7SZk",
           "weight": 1
+        },
+        {
+          "video_id": "T8NVqDQZWgk",
+          "weight": 2
+        },
+        {
+          "video_id": "zU4KpvG_a1I",
+          "weight": 3
+        },
+        {
+          "video_id": "jSh6VJYRV-g",
+          "weight": 4
+        },
+        {
+          "video_id": "Y-Y9CXGRJPU",
+          "weight": 5
+        },
+        {
+          "video_id": "T9uI1-6Ac6A",
+          "weight": 6
+        },
+        {
+          "video_id": "TA3Uo3a9674",
+          "weight": 7
+        },
+        {
+          "video_id": "0smDhdzqXu8",
+          "weight": 8
+        },
+        {
+          "video_id": "JAF3Bpy-AsY",
+          "weight": 9
+        },
+        {
+          "video_id": "763VL30t8vg",
+          "weight": 10
         }
       ]
     },
@@ -51,8 +115,24 @@
       "description": "This is the American Idol channel",
       "videos":[
         {
-          "video_id": "p0ALRsgABrs",
+          "video_id": "DM5DE1F_jfc",
           "weight": 1
+        },
+        {
+          "video_id": "GEyHT45l06U",
+          "weight": 2
+        },
+        {
+          "video_id": "OUu7HZC4p0M",
+          "weight": 3
+        },
+        {
+          "video_id": "Sx6iVTntOec",
+          "weight": 4
+        },
+        {
+          "video_id": "CZadJK_dTqE",
+          "weight": 5
         }
       ]
     }

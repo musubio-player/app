@@ -39,7 +39,10 @@ class ImporterApi(remote.Service):
         ImporterModel.delete_all(ChannelModel)
         ImporterModel.delete_all(VideoModel)
 
+        logging.info('Iterating through JSON data to import')
         for channel in request.channels:
+            logging.info('Creating channel')
+
             # Create the channel.
             channelInstance = ChannelModel()
             channelInstance.title = channel.title
@@ -48,6 +51,8 @@ class ImporterApi(remote.Service):
 
             # Create videos and associate them to the channel.
             for video in channel.videos:
+                logging.info('Creating video')
+
                 videoInstance = VideoModel()
 
                 # Get video data from YouTube.
