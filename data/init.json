@@ -5,20 +5,14 @@
       "description": "This is the SF Giants channel",
       "videos":[
         {
-          "title": "12 Wins in October: A 2014 SF Giants Documentary",
-          "description": "Video clips & audio remain courtesy of Major League Baseball Advanced Media, Comcast Sportsnet Bay Area, MLB Network, TBS, FOX Sports 1, FOX, Cumulus ...",
           "video_id": "p0ALRsgABrs",
           "weight": 1
         },
         {
-          "title": "2016 S.F. Giants Hype Video!",
-          "description": "Have you heard? It's an even year! Video made for entertainment purposes only Clips belong to MLB.com/MLB Advanced Media Purpose Pitch Productions ...",
           "video_id": "bqxwPApqOJQ",
           "weight": 2
         },
         {
-          "title": "Dynasty Cemented: Francisco Giants 2014 Playoffs Highlights",
-          "description": "Behind one of the greatest pitching performances in baseball history, the San Francisco Giants won their third championship in five years.",
           "video_id": "rvAGBcNlCJU",
           "weight": 3
         }
@@ -29,20 +23,14 @@
       "description": "This is the study music channel",
       "videos": [
         {
-          "title": "Study Music Project - Clarity (TWO HOUR LONG EDIT)",
-          "description": "Was Study Music Project Helpful? Your opinion counts: http://bit.ly/smpfeedback Relaxing, Instrumental Background Music to Help You Study and Focus.",
           "video_id": "yAGenUoIIeA",
           "weight": 1
         },
         {
-          "title": "2 HOUR LONG Piano Music for Studying, Concentrating, and Focusing Playlist",
-          "description": "For FREE Study Music, please check out my Patreon: http://www.patreon.com/studymusicproject This is the ultimate study music playlist for concentrating, ...",
           "video_id": "WVP3fUzQHcg",
           "weight": 2
         },
         {
-          "title": "Study Music Project - Just in a Memory (Music for Studying)",
-          "description": "Was Study Music Project Helpful? Your opinion counts: http://bit.ly/smpfeedback Relaxing, Instrumental Background Music to Help You Study and Focus.",
           "video_id": "7OZyWXwypDU",
           "weight": 3
         }
@@ -53,8 +41,6 @@
       "description": "This is the Mangchi channel",
       "videos":[
         {
-          "title": "12 Wins in October: A 2014 SF Giants Documentary",
-          "description": "Video clips & audio remain courtesy of Major League Baseball Advanced Media, Comcast Sportsnet Bay Area, MLB Network, TBS, FOX Sports 1, FOX, Cumulus ...",
           "video_id": "p0ALRsgABrs",
           "weight": 1
         }
@@ -65,8 +51,6 @@
       "description": "This is the American Idol channel",
       "videos":[
         {
-          "title": "12 Wins in October: A 2014 SF Giants Documentary",
-          "description": "Video clips & audio remain courtesy of Major League Baseball Advanced Media, Comcast Sportsnet Bay Area, MLB Network, TBS, FOX Sports 1, FOX, Cumulus ...",
           "video_id": "p0ALRsgABrs",
           "weight": 1
         }

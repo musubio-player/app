@@ -8,7 +8,7 @@ class VideoModel(ndb.Model):
     """Model to store videos that have been inserted by users."""
     video_id = ndb.StringProperty(required=True)
     title = ndb.StringProperty(required=True)
-    description = ndb.StringProperty()
+    description = ndb.TextProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
 
     @classmethod

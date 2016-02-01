@@ -27,6 +27,11 @@ class VideoInsertRequest(messages.Message):
     video_id = messages.StringField(3, required=True)
 
 
+class VideoImportRequest(messages.Message):
+    """ProtoRPC message definition to represent a video to be imported."""
+    video_id = messages.StringField(1, required=True)
+
+
 class VideoList(messages.Message):
     """Collection of Videos."""
     videos = messages.MessageField(Video, 1, repeated=True)

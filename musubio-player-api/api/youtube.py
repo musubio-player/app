@@ -70,7 +70,7 @@ class YouTubeApi(remote.Service):
             id = video['id']['videoId']
         except:
             id = video['id']
-        
+
         videoMessage.id = id
         videoMessage.title = video['snippet']['title']
         videoMessage.url = 'https://www.youtube.com/watch?v=%s' % id

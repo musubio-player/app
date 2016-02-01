@@ -1,4 +1,4 @@
-import endpoints
+import endpoints, logging
 from protorpc import remote
 from api import api_root
 
@@ -7,6 +7,8 @@ from messages.channel import ChannelAddVideoRequest
 from models.channel import ChannelModel
 from models.video import VideoModel
 from models.importer import Importer as ImporterModel
+from youtube import YoutubeAPI
+from api.youtube import YouTubeApi as YouTubeEndpoint
 
 package = 'Musubio'
 
@@ -20,7 +22,20 @@ class ImporterApi(remote.Service):
                       http_method='POST',
                       name='importer.init')
     def import_init(self, request):
+        """
+        Import Musubio channels and playlist videos from a JSON string.
+
+        :param request:
+        :return:
+        """
+        logging.info('import_init() called')
+
+        # Extract the video IDs from the data to fetch video details from YouTube.
+        video_ids = ImporterApi.get_video_ids(request.channels)
+        video_dict = ImporterApi.get_video_data(video_ids)
+
         # Clear out the existing records.
+        logging.info('Clearing out channel and video data')
         ImporterModel.delete_all(ChannelModel)
         ImporterModel.delete_all(VideoModel)
 
@@ -34,8 +49,12 @@ class ImporterApi(remote.Service):
             # Create videos and associate them to the channel.
             for video in channel.videos:
                 videoInstance = VideoModel()
-                videoInstance.title = video.title
-                videoInstance.description = video.description
+
+                # Get video data from YouTube.
+                video_data = video_dict[video.video_id]
+
+                videoInstance.title = video_data.title
+                videoInstance.description = video_data.description
                 videoInstance.video_id = video.video_id
                 videoInstance.put()
 
@@ -47,3 +66,43 @@ class ImporterApi(remote.Service):
         importer = Importer()
 
         return importer
+
+    @staticmethod
+    def get_video_ids(channels):
+        """
+        Gets all the video ID's that are to be imported.
+
+        :param channel: JSON data of the channel and videos to be imported.
+        :return:
+        """
+        logging.info('get_video_ids() called')
+
+        video_ids = []
+        for channel in channels:
+            for video in channel.videos:
+                video_ids.append(video.video_id)
+
+        return set(video_ids)
+
+    @staticmethod
+    def get_video_data(video_ids):
+        """
+        Gets the video data via the YouTube API.
+        :param video_ids:
+        :return: a dictionary of videos keyed by the YouTube ID.
+        """
+        logging.info('get_video_data() called')
+
+        video_dict = {}
+
+        api = YoutubeAPI()
+        results, videos = api.video_list(",".join(video_ids))
+
+        # Put the video data in a dictionary keyed by the video ID.
+        for video in videos:
+            videoMessage = YouTubeEndpoint.to_message(video)
+            video_dict[videoMessage.id] = videoMessage
+
+        return video_dict
+
+
