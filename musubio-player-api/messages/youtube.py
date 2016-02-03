@@ -21,6 +21,8 @@ class Video(messages.Message):
     channel_title = messages.StringField(7, required=True)
     description = messages.StringField(8, required=True)
     thumbnail = messages.MessageField(ThumbnailMessage, 9, required=True)
+    duration_ISO = messages.StringField(10)
+    duration = messages.IntegerField(11)
 
 
 class SearchResultsMessage(messages.Message):

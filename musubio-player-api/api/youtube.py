@@ -1,4 +1,4 @@
-import endpoints
+import endpoints, isodate
 from protorpc import remote
 from api import api_root
 
@@ -85,5 +85,9 @@ class YouTubeApi(remote.Service):
         thumbnail.high = video['snippet']['thumbnails']['high']['url']
         thumbnail.medium = video['snippet']['thumbnails']['medium']['url']
         videoMessage.thumbnail = thumbnail
+
+        if 'contentDetails' in video:
+            videoMessage.duration_ISO = video['contentDetails']['duration']
+            videoMessage.duration = int(isodate.parse_duration(video['contentDetails']['duration']).total_seconds())
 
         return videoMessage

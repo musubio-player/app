@@ -61,6 +61,8 @@ class ImporterApi(remote.Service):
                 videoInstance.title = video_data.title
                 videoInstance.description = video_data.description
                 videoInstance.video_id = video.video_id
+                videoInstance.duration_ISO = video_data.duration_ISO
+                videoInstance.duration = video_data.duration
                 videoInstance.put()
 
                 message = ChannelAddVideoRequest()

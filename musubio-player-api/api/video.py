@@ -19,7 +19,7 @@ class VideoApi(remote.Service):
                       name='video.list')
     def video_list(self, request):
         query = VideoModel.get_list()
-        videos = [entity.to_message() for entity in query.fetch()]
+        videos = [video.to_message() for video in query.fetch()]
 
         videoList = VideoList()
         videoList.videos = videos

@@ -10,6 +10,8 @@ class VideoModel(ndb.Model):
     title = ndb.StringProperty(required=True)
     description = ndb.TextProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
+    duration_ISO = ndb.StringProperty(required=True)
+    duration = ndb.IntegerProperty(required=True)
 
     @classmethod
     def _get_kind(cls):
@@ -30,6 +32,8 @@ class VideoModel(ndb.Model):
         video.title = self.title
         video.description = self.description
         video.created = self.created
+        video.duration_ISO = self.duration_ISO
+        video.duration = self.duration
 
         image = Image()
         image.default = '%s/%s/default.jpg' % (YOUTUBE_IMAGE_ROOT, video.video_id)
@@ -55,9 +59,13 @@ class VideoModel(ndb.Model):
         """
         # current_user = get_endpoints_current_user()
         # entity = cls(outcome=message.outcome, player=current_user)
-        entity = cls(title=message.title, description=message.description, video_id=message.video_id)
-        entity.put()
-        return entity
+        video = cls(
+            title=message.title,
+            description=message.description,
+            video_id=message.video_id)
+
+        video.put()
+        return video
 
     @classmethod
     def get_list(cls):

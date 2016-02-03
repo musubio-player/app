@@ -18,6 +18,8 @@ class Video(messages.Message):
     description = messages.StringField(4, required=True)
     image = messages.MessageField(Image, 5, required=True)
     created = message_types.DateTimeField(6, required=True)
+    duration_ISO = messages.StringField(7, required=True)
+    duration = messages.IntegerField(8, required=True)
 
 
 class VideoInsertRequest(messages.Message):
@@ -25,6 +27,8 @@ class VideoInsertRequest(messages.Message):
     title = messages.StringField(1, required=True)
     description = messages.StringField(2, required=True)
     video_id = messages.StringField(3, required=True)
+    duration_ISO = messages.StringField(4, required=True)
+    duration = messages.IntegerField(5, required=True)
 
 
 class VideoImportRequest(messages.Message):
