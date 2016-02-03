@@ -19,7 +19,7 @@ class YoutubeAPI():
         """ YouTube Search """
         results = self.api.search().list(
             q=q,
-            part='id,snippet',
+            part='snippet',
             maxResults=limit).execute()
 
         videos = []
@@ -42,7 +42,7 @@ class YoutubeAPI():
         """Get a list of videos by ID"""
         results = self.api.videos().list(
             id=id,
-            part='snippet',
+            part='snippet,contentDetails',
         ).execute()
 
         videos = []
