@@ -14,6 +14,7 @@ TIME_FORMAT_STRING = '%b %d, %Y %I:%M:%S %p'
 
 class ChannelModel(ndb.Model):
     """Model to store channels that have been inserted by users."""
+    entity_id = ndb.IntegerProperty(required=True)
     title = ndb.StringProperty(required=True)
     description = ndb.StringProperty()
     videos = ndb.KeyProperty(kind=VideoModel, repeated=True)
@@ -40,6 +41,7 @@ class ChannelModel(ndb.Model):
         """
         channel = ChannelMessage()
         channel.id = self.key.id()
+        channel.entity_id = self.entity_id
         channel.title = self.title
         channel.description = self.description
 
@@ -69,7 +71,7 @@ class ChannelModel(ndb.Model):
         """
         # current_user = get_endpoints_current_user()
         # entity = cls(outcome=message.outcome, player=current_user)
-        entity = cls(title=message.title, description=message.description)
+        entity = cls(entity_id=message.entity_id, title=message.title, description=message.description)
         entity.put()
         return entity
 

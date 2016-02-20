@@ -7,11 +7,12 @@ from messages.video import Video, VideoImportRequest
 class Channel(messages.Message):
     """Channel that stores a message."""
     id = messages.IntegerField(1, required=True)
-    title = messages.StringField(2, required=True)
-    description = messages.StringField(3, required=False)
-    videos = messages.MessageField(Video, 4, repeated=True)
-    created = message_types.DateTimeField(5, required=False)
-    updated = message_types.DateTimeField(6, required=False)
+    entity_id = messages.IntegerField(2, required=True)
+    title = messages.StringField(3, required=True)
+    description = messages.StringField(4, required=False)
+    videos = messages.MessageField(Video, 5, repeated=True)
+    created = message_types.DateTimeField(6, required=False)
+    updated = message_types.DateTimeField(7, required=False)
 
 
 class ChannelDetailsRequest(messages.Message):
@@ -21,15 +22,17 @@ class ChannelDetailsRequest(messages.Message):
 
 class ChannelInsertRequest(messages.Message):
     """ProtoRPC message definition to represent a channel to be inserted."""
-    title = messages.StringField(1, required=True)
-    description = messages.StringField(2, required=False)
+    entity_id = messages.IntegerField(1, required=True)
+    title = messages.StringField(2, required=True)
+    description = messages.StringField(3, required=False)
 
 
 class ChannelBatchImportRequest(messages.Message):
     """ProtoRPC message definition to represent a channel to be inserted."""
-    title = messages.StringField(1, required=True)
-    description = messages.StringField(2, required=False)
-    videos = messages.MessageField(VideoImportRequest, 3, repeated=True)
+    entity_id = messages.IntegerField(1, required=True)
+    title = messages.StringField(2, required=True)
+    description = messages.StringField(3, required=False)
+    videos = messages.MessageField(VideoImportRequest, 4, repeated=True)
 
 
 class ChannelListResponse(messages.Message):
