@@ -30,7 +30,7 @@ class VideoModel(ndb.Model):
         video.id = self.key.id()
         video.video_id = self.video_id
         video.title = self.title
-        video.description = self.description
+        # video.description = self.description
         video.created = self.created
         video.duration_ISO = self.duration_ISO
         video.duration = self.duration

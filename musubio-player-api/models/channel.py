@@ -4,13 +4,16 @@ Defines models for persisting and querying score data on a per user basis and
 provides a method for returning a 401 Unauthorized when no current user can be
 determined.
 """
+import time, datetime, logging
+
 from google.appengine.ext import ndb
+from google.appengine.api import memcache
 
 from messages.channel import Channel as ChannelMessage
 from models.video import VideoModel
 
 
-TIME_FORMAT_STRING = '%b %d, %Y %I:%M:%S %p'
+DATETIME_FORMAT_STRING = '%Y-%m-%dT%H:%M:%S.%f'
 
 class ChannelModel(ndb.Model):
     """Model to store channels that have been inserted by users."""
@@ -25,12 +28,7 @@ class ChannelModel(ndb.Model):
     def _get_kind(cls):
         return 'Channel'
 
-    @property
-    def timestamp(self):
-        """Property to format a datetime object to string."""
-        return self.created.strftime(TIME_FORMAT_STRING)
-
-    def to_message(self):
+    def to_message(self, current=False):
         """Turns the Channel entity into a ProtoRPC object.
 
         This is necessary so the entity can be returned in an API request.
@@ -46,8 +44,25 @@ class ChannelModel(ndb.Model):
         channel.description = self.description
 
         videos = []
-        for video in self.videos:
-            videos.append(video.get().to_message())
+
+        if current is True:
+            # Get only the current video that is playing.
+            videos.append(self.get_current_video())
+        else:
+            # Get all the videos on this channel.
+            for video in self.videos:
+                cache_key = 'video:get:%s' % (video.id)
+                video_data = memcache.get(cache_key)
+                if video_data is None:
+                    video_data = video.get().to_message()
+
+                    # Cache results
+                    memcache.add(cache_key, video_data)
+                    logging.info('[CACHE ADD] Video: %s' % video)
+                else:
+                    logging.info('[CACHE READ] Video: %s' % video)
+
+                videos.append(video_data)
 
         channel.videos = videos
         channel.created = self.created
@@ -76,7 +91,7 @@ class ChannelModel(ndb.Model):
         return entity
 
     @classmethod
-    def query_channels(cls):
+    def get_channels(cls):
         return cls.query()
 
     @classmethod
@@ -94,3 +109,35 @@ class ChannelModel(ndb.Model):
     @classmethod
     def remove_video(cls):
         pass
+
+    def get_current_video(self):
+        """
+        Calculates what the current video that is playing.
+
+        :return: Video
+        """
+        now = int(time.time())
+        base_time = int(time.mktime(self.created.timetuple()))
+        # now = Math.floor(new Date('Wed Feb 04 2016 06:03:20 GMT-0800 (PST)').getTime() / 1000)
+        # baseTime = Math.floor(new Date('Wed Feb 04 2016 06:00:00 GMT-0800 (PST)').getTime() / 1000)
+
+        time_since_base_time = now - base_time
+
+        print '*=====================================================*'
+        print 'now: %s' % now
+        print 'base_time: %s' % base_time
+        print 'time_since_base_time: %s' % time_since_base_time
+
+        # playlist_start_time = time_since_base_time % that.playlistTotalDuration
+        # curr_duration = 0
+        # video_index = 0
+        # start_time = 0
+        #
+        # for index, video in self.videos.iteritems():
+        #   if playlist_start_time >= curr_duration:
+        #     video_index = index
+        #     start_time = playlist_start_time - curr_duration
+        #
+        #   curr_duration += curr_duration + int(video.duration)
+
+        return self.videos[0].get().to_message()

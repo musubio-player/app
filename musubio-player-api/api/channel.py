@@ -27,7 +27,7 @@ class ChannelApi(remote.Service):
     def channel_details(self, request):
         logging.info('channel_details()')
 
-        cache_key = 'channels/details/%s' % request.id
+        cache_key = 'channels:details:%s' % request.id
         channel = memcache.get(cache_key)
         if channel is None:
             channel = ChannelModel.get_details(request)
@@ -50,10 +50,10 @@ class ChannelApi(remote.Service):
     def channel_list(self, request):
         logging.info('channel_list()')
 
-        cache_key = 'channels/list'
+        cache_key = 'channels:list'
         channels = memcache.get(cache_key)
         if channels is None:
-            query = ChannelModel.query_channels()
+            query = ChannelModel.get_channels()
             channels = [entity.to_message() for entity in query.fetch()]
 
             # Cache results
@@ -62,6 +62,21 @@ class ChannelApi(remote.Service):
             logging.info('Channel list cached')
         else:
             logging.info('Channel list read from cache')
+
+        channelList = ChannelListResponse()
+        channelList.channels = channels
+
+        return channelList
+
+    @endpoints.method(message_types.VoidMessage,
+                      ChannelListResponse,
+                      path='channels/current',
+                      http_method='GET',
+                      name='channel.list.current')
+    def channel_list_current(self, request):
+        logging.info('channel_list_current()')
+        query = ChannelModel.get_channels()
+        channels = [channel.to_message(current=True) for channel in query.fetch()]
 
         channelList = ChannelListResponse()
         channelList.channels = channels
